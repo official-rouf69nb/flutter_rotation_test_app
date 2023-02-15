@@ -28,73 +28,87 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 class _MyHomePageState extends State<MyHomePage> {
-
-  double _pws = 1;
-  double _pHs = 1;
-  double _angs = 1;
+  double _cellWidthSliderValue = 1;
+  double _cellHeightSliderValue = 1;
+  double _imgWidthSliderValue = 1;
+  double _imgHeightSliderValue = 1;
+  double _angleSliderValue = 0;
 
   @override
   Widget build(BuildContext context) {
-    // double bw = 300;
-    // double bh = 200;
-    // var cW = 10.0;//currentRotatedRectangleWidth;
-    // var cH = 20.0;//currentRotatedRectangleHeight;
-    // var rad = 0.3;//angleOfRotation;
-    //
-    // var s = max(max(cW, bw),max(cH, bh));
-    //
-    // var cBW = (s * sin(rad)).abs() + (s * cos(rad)).abs();
-    // var cBH = (s * sin(rad)).abs() + (s * cos(rad)).abs();
-    // var dx = (cBW - cW) / 2;
-    // var dy = (cBH - cH) / 2;
-    //
-    // var CoeffH = cH / cBW;
-    // var CoeffV = cH / cBH;
-    // var Coeff = min(CoeffH, CoeffV);
+    ISize cellSize = ISize(300 * _cellWidthSliderValue, 300 * _cellHeightSliderValue);
+    ISize imgSize = ISize(300 * _imgWidthSliderValue, 300 * _imgHeightSliderValue);
+    double ang = 6.28319 * _angleSliderValue;
 
-    // double wo = 300;
-    // double ho = 300;
-    // double w = 300;
-    // double h = 300;
-    // double angle = 1;
-    //
-    //
-    // var W = (w * cos(angle)) + (h * sin(angle));
-    // var H = (w * sin(angle)) + (h * cos(angle));
-    //
-    // print("Width: $W, Height: $H");
-    //
-    // var a = min(wo / W, ho / H);
-    // print("min: $a");
-    //
-    // // var scale = 1.0;
-    // // if(a < 1){
-    // //   scale +=  0.01;
+
+    // final iRatioH = (h/ih).abs();
+    // final iRatioW = (w/iw).abs();
+    // final iRatio = (ih / iw).abs();
+    // if(iw >= w){
+    //   final iScale=max(iRatioH, iRatioW);
+    //   iw = iScale * iw;
+    //   ih = iw * iRatio;
+    // }
+    // else if(iw <= w){
+    //   final iScale=min(iRatioH, iRatioW);
+    //   iw = iScale * iw;
+    //   ih = iw * iRatio;
+    // }
+    // else if(ih <= h){
+    //   final iScale=max(iRatioH, iRatioW);
+    //   ih = iScale * ih;
+    //   iw = ih * iRatio;
+    // }
+    // else{
+    //   final iScale=min(iRatioH, iRatioW);
+    //   ih = iScale * ih;
+    //   iw = ih * iRatio;
+    // }
+    // // else{
+    // //
     // // }
     // //
-    // //
-    // // final Rect rectangle = Rect();
-    // // final cx = rectangle.left + rectangle.width / 2;
-    // // final cy = rectangle.top + rectangle.height / 2;
-
-    double h = 300 * _pHs;
-    double w = 300 * _pws;
-    double ih = 300;
-    double cw = 200;
-
-    double ang = 6.28319 * _angs;
 
 
+    // final iScale=max(h/ih, w/iw);
+    // final iRatio = (ih / iw).abs();
+    // ih = iScale * ih;
+    // iw = iScale * iw;
 
-    var scale = 1.0;
-      if (h > w) {
-        scale = cos(ang).abs() + (h / w * sin(ang)).abs();
-      } else {
-        scale = cos(ang).abs() + (w / h * sin(ang)).abs();
-      }
 
-   print(ang * 180/pi);
-   print(scale);
+    // if(h > ih){
+    //   var iScale=max(h/ih, w/iw);
+    //   ih = iScale * ih;
+    //   iw = iScale * iw;
+    // }
+    // else {
+
+    // }
+
+    // var iScale=min(h/ih, w/iw);
+    //
+    // ih = iScale * ih;
+    // iw = iScale * iw;
+
+    //
+    // var scale = 1.0;
+    // if (h > w) {
+    //   scale = cos(ang).abs() + (h / w * sin(ang)).abs();
+    // } else {
+    //   scale = cos(ang).abs() + (w / h * sin(ang)).abs();
+    // }
+    // if (ih > iw) {
+    //   scale = cos(ang).abs() + (ih / iw * sin(ang)).abs();
+    //   ih = ih * scale;
+    //   iw = iw * iRatio;
+    // } else {
+    //   scale = cos(ang).abs() + (iw / ih * sin(ang)).abs();
+    //   iw = iw * scale;
+    //   ih = ih * iRatio;
+    // }
+    //
+    // ih = ih * scale;
+    // iw = iw * scale;
 
     return Scaffold(
       appBar: AppBar(
@@ -108,8 +122,8 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Center(
                   child: Container(
-                    width: w,
-                    height: h,
+                    width: cellSize.width,
+                    height: cellSize.height,
                     color: Colors.grey,
                   ),
                 ),
@@ -120,12 +134,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Transform.rotate(
                       angle: ang,
                       child: Container(
-                        width: w * scale ,
-                        height: h * scale,
+                        width: imgSize.width ,
+                        height: imgSize.height,
                         color: Colors.redAccent.withOpacity(0.4),
                        child: FittedBox(
+                         fit: BoxFit.scaleDown,
                          child: Text(
                              (ang * 180/pi).toStringAsFixed(1),
+                           style: const TextStyle(
+                             fontSize: 32,
+                           ),
                          ),
                        ),
                       ),
@@ -135,38 +153,80 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          //ANgle
+
+          //Angle
           Slider(
-            value: _angs,
+            value: _angleSliderValue,
             onChanged: (x){
               setState(() {
-                _angs = x;
+                _angleSliderValue = x;
               });
             },
           ),
-
           //Width
-          Slider(
-            value: _pws,
-            onChanged: (x){
-              setState(() {
-                _pws = x;
-              });
-            },
+          Row(
+            children: [
+              Expanded(
+                child: Slider(
+                  value: _cellWidthSliderValue,
+                  onChanged: (x){
+                    setState(() {
+                      _cellWidthSliderValue = x;
+                    });
+                  },
+                  min: 0.1,
+                ),
+              ),
+              Expanded(
+                child: Slider(
+                  value: _imgWidthSliderValue,
+                  onChanged: (x){
+                    setState(() {
+                      _imgWidthSliderValue = x;
+                    });
+                  },
+                  min: 0.1,
+                ),
+              ),
+            ],
           ),
-
           //Height
-          Slider(
-            value: _pHs,
-            onChanged: (x){
-              setState(() {
-                _pHs = x;
-              });
-            },
+          Row(
+            children: [
+              Expanded(
+                child: Slider(
+                  value: _cellHeightSliderValue,
+                  onChanged: (x){
+                    setState(() {
+                      _cellHeightSliderValue = x;
+                    });
+                  },
+                  min: 0.1,
+                ),
+              ),
+              Expanded(
+                child: Slider(
+                  value: _imgHeightSliderValue,
+                  onChanged: (x){
+                    setState(() {
+                      _imgHeightSliderValue = x;
+                    });
+                  },
+                  min: 0.1,
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 8,),
+          const SizedBox(height: 8,),
         ],
       ),// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+class ISize{
+  double width;
+  double height;
+
+  ISize(this.width, this.height);
 }
