@@ -40,6 +40,46 @@ class _MyHomePageState extends State<MyHomePage> {
     ISize imgSize = ISize(300 * _imgWidthSliderValue, 300 * _imgHeightSliderValue);
     double ang = 6.28319 * _angleSliderValue;
 
+    final imageRatio = imgSize.ratio;
+
+    while(cellSize.width > imgSize.width && cellSize.height > imgSize.height){
+
+    }
+
+    ///Change width if required
+    // imgSize.height = cellSize.height;
+    // imgSize.width =  imgSize.height * imageRatio;
+    //
+    // if(cellSize.width > imgSize.width){
+    //   imgSize.width = cellSize.width;
+    //   imgSize.height =  imgSize.height * imageRatio;
+    // }else{
+    //   imgSize.width = cellSize.width;
+    //   imgSize.height =  imgSize.width * imageRatio;
+    // }
+
+
+    // var scale = 1.0;
+    // if (imgSize.height > imgSize.width) {
+    //   scale = cos(ang).abs() + (imgSize.height / imgSize.width * sin(ang)).abs();
+    //   imgSize.scale(scale);
+    // } else {
+    //   scale = cos(ang).abs() + (imgSize.width / imgSize.height * sin(ang)).abs();
+    //   imgSize.scale(scale);
+    // }
+
+
+    // ///Width fit with ratio
+    // if(cellSize.width > imgSize.width){
+    //
+    // }
+    // else if(cellSize.width == imgSize.width){
+    //
+    // }
+    // else if(cellSize.width < imgSize.width){
+    //
+    // }
+
 
     // final iRatioH = (h/ih).abs();
     // final iRatioW = (w/iw).abs();
@@ -222,6 +262,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+
 }
 
 class ISize{
@@ -229,4 +271,31 @@ class ISize{
   double height;
 
   ISize(this.width, this.height);
+
+  double get ratio => width / height;
+
+  // double getHeight(double ratio) {
+  //   var height = ((width)/(sqrt((pow(ratio, 2)+1))));
+  //   return height;
+  // }
+  // double getWidth(double ratio) {
+  //   var width = ((height)/(sqrt((1)/(pow(ratio, 2)+1))));
+  //   return width;
+  // }
+
+  // void scale(double scale) {
+  //   width = width * scale;
+  //   height = height * scale;
+  // }
+  //
+  // void setWidthWithRatio(double value){
+  //   final temp = width;
+  //   width = value;
+  //   height = (height * value) / temp;
+  // }
+  // void setHeightWithRatio(double value){
+  //   final temp = width;
+  //   height =  value;
+  //   width = (width * value) / temp;
+  // }
 }
